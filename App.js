@@ -1,40 +1,57 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Button,SafeAreaView, StyleSheet, TextInput, Text, View } from 'react-native';
 
 export default function App() {
-  const[materia_uno, setMateriaUno]= useState()
-  const[materia_dos, setMateriaDos]= useState()
-  const[materia_tres, setMateriaTres]= useState()
-  const getMaterias=(materia_uno,materia_dos,materia_tres) =>{
-    return materia_uno + "" + materia_dos + "" + materia_tres;
-  }
-
-  return (
+  const[materiaUno, setMateriaUno]= useState("Ingrese materia uno")
+  const[materiaDos, setMateriaDos]= useState("Ingrese materia dos")
+  const[materiaTres, setMateriaTres]= useState("Ingrse materia tres")
+  const[isActivo, setActivo]=useState(true)
+  // const getMaterias=(materia_uno,materia_dos,materia_tres) =>{
+  //   return materia_uno + "" + materia_dos + "" + materia_tres;
+  // }
+const Materia=(props)=> {
+  return(
+    <View>
+      <Text>{props.nombre}</Text>
+    </View>
+  )
+};
+  
+return (
    <View style={styles.container}>
-    <StatusBar style="auto"/>
       <TextInput
         style={styles.inputText}
        placeholder="Introduce la primera Materia"
-       onChangeText={setMateriaUno}
-       value={materia_uno}
+       onChangeText={(newText)=>setMateriaUno(newText)}
+       value={materiaUno}
       />
      <TextInput
         style={styles.inputText}
        placeholder="Introduce la segunda Materia"
-       onChangeText={setMateriaDos}
-       value={materia_dos}
+       onChangeText={(newText)=>setMateriaDos(newText)}
+       value={materiaDos}
       />
         <TextInput
         style={styles.inputText}
        placeholder="Introduce la tercera Materia"
-       onChangeText={setMateriaTres}
-       value={materia_tres}
+       onChangeText={(newText)=>setMateriaTres(newText)}
+       value={materiaTres}
       />
-      
-      <Button title="Carga de Materias" onePress={getMaterias} />
-      <Text style={styles.getMaterias}></Text>
-     
+      <Text>Carga de Materias</Text>
+      <Materia nombre = {materiaUno}/>
+      <Materia nombre = {materiaDos}/>
+      <Materia nombre = {materiaTres}/>
+      <Button 
+      onPress={()=>{
+        setActivo(false );
+      }}
+      disabled={!isActivo}
+      title={isActivo ? "Carga de Materias" : " " + materiaUno + " ," + materiaDos + " ," + materiaTres}
+      />
+
+      <Text>Ismael Zarate</Text>
+      <StatusBar style="auto"/>
    </View>
   );
  
